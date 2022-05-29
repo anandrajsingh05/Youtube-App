@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/13760dee3d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./search.css">
+    <title>Document</title>
+
+</head>
+<body>
+    <nav id="navbar">
+        <div id="logo">
+            <i class="fa-solid fa-bars"></i>
+            <a href="index.html"><img src="https://www.seekpng.com/png/full/77-772362_youtube-logo-youtube-logo-png.png" alt="logo"></a>
+        </div>
+        <div id="searchdiv">
+            <input type="text" id="input" placeholder="Search">
+            <button id="search" onclick="searchvideos()"><i class="fas fa-search"></i></button>
+            <div id="microphone"><i class="fa-solid fa-microphone"></i></div>
+        </div>
+        <div id="options">
+            <i class="fa-solid fa-video"></i>
+            <i class="fa-regular fa-grid"></i>
+            <i class="fa-regular fa-bell"></i>
+        </div>
+    </nav>
+  
+  <div id="search_results"></div>
+</body>
+</html>
+<script src="index.js"></script>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/13760dee3d.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="display.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div id="logo">
+            <i class="fa-solid fa-bars"></i>
+            <a href="index.html"><img src="https://www.seekpng.com/png/full/77-772362_youtube-logo-youtube-logo-png.png" alt="logo"></a>
+        </div>
+        <div id="searchdiv">
+            <input type="text" id="input" placeholder="Search">
+            <button id="search" onclick="searchvideos()"><i class="fas fa-search"></i></button>
+            <div id="microphone"><i class="fa-solid fa-microphone"></i></div>
+        </div>
+        <div id="options">
+            <i class="fa-solid fa-video"></i>
+            <i class="fa-regular fa-grid"></i>
+            <i class="fa-regular fa-bell"></i>
+        </div>
+    </nav>
+    <div class="searchdata"></div>
+    <div id="display"></div>
+</body>
+</html>
+<script>
+
+
+const searchvideos= async()=>{
+    try{
+        let input= document.getElementById("input").value;
+        let url=`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${input}&key=AIzaSyBUhVB1ElvbTioqDiUWTPaTyiKH1497tSE&type=mostpopular&maxResults=30`;
+        
+
+        let res = await fetch(url);
+        let data = await res.json();
+        let videos= data.items;
+        console.log(videos);
+        appendVideos(videos);
+    }
+    catch(error){
+        console.log("error",error);
+    }
+   
+   
+};
+
+
+// https://www.youtube.com/embed/3fpP2dM02tM
+const appendVideos= (data)=>{
+        document.getElementById("display").innerHTML=null;
+            data.forEach(({snippet:{title,thumbnails:{high:{url}}}},index) => {
+                let div= document.createElement("div")
+                // div.style.border="1px solid red"
+                div.style.cursor="pointer";
+                let thumb= document.createElement("img");
+                thumb.src=url;
+                thumb.style.width="100%";
+                thumb.style.height="200px";
+                let name= document.createElement("p");
+                name.textContent=title;
+                div.addEventListener("click",()=>{
+                      localStorage.setItem("video",JSON.stringify(data[index]));
+                      window.location.href="display.html";
+                })
+                // let iframe= document.createElement("iframe");
+                // iframe.src=`https://www.youtube.com/embed/${el.id.videoId}`;
+                // iframe.height="80%";
+                // iframe.width="100%";
+                // iframe.allow="fullscreen";
+            div.append(thumb,name);
+                document.querySelector(".searchdata").append(div);
+
+            });
+      
+}
+
+
+
+
+    let video= JSON.parse(localStorage.getItem("video"))||{};
+    console.log(video);
+const appendpopularVideos= (data)=>{
+    document.getElementById("display").innerHTML=null;
+        let div= document.createElement("div");
+        div.style.cursor="pointer";
+        let name= document.createElement("p");
+        name.textContent=data.snippet.title;
+        let iframe= document.createElement("iframe");
+        iframe.src=`https://www.youtube.com/embed/${data.id}`;
+        iframe.id="iframe";
+        iframe.allow="fullscreen";
+        div.append(iframe,name);
+        document.getElementById("display").append(div);
+
+
+}
+appendpopularVideos(video)
+</script>
