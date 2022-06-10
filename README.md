@@ -1,2 +1,2 @@
 # Youtube-App
-https://youtubeanand.netlify.app/
+<a href="https://youtubeanand.netlify.app/" target="_blank">Youtube-mini App Live</a>
